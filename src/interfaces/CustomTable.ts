@@ -17,6 +17,17 @@ export interface IColumn {
   sortable: boolean;
 }
 
+export interface ITableHead {
+  columns: IColumn[];
+  handleSorting: (field: keyof Item) => void;
+  sortField: keyof Item | null;
+  sortOrder: "asc" | "desc";
+}
+
+export interface ITableBody {
+  items: Item[];
+}
+
 export interface IPagination {
   options: number[];
   itemsPerPage: number;

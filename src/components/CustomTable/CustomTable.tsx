@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { ICustomTable } from "../../interfaces/CustomTable";
+import { IColumn, ICustomTable, Item } from "../../interfaces/CustomTable";
+import { TableHead } from "./TableHead";
+import { TableBody } from "./TableBody";
 import { Pagination } from "./Pagination";
 
 export const CustomTable = ({ items, options }: ICustomTable) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  const [sortField, setSortField] = useState<keyof Item | null>(null);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
@@ -19,14 +23,51 @@ export const CustomTable = ({ items, options }: ICustomTable) => {
     setCurrentPage(1);
   };
 
+  const sortItems = (items: Item[]): Item[] => {
+    if (!sortField) return items;
+
+    return [...items].sort((a, b) => {
+      if (a[sortField] < b[sortField]) {
+        return sortOrder === "asc" ? -1 : 1;
+      }
+      if (a[sortField] > b[sortField]) {
+        return sortOrder === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
+  const handleSorting = (field: keyof Item) => {
+    if (sortField === field) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortOrder("asc");
+    }
+  };
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const itemsDisplayed = items.slice(startIndex, endIndex);
+  const sortedItems = sortItems(items);
+  const itemsDisplayed = sortedItems.slice(startIndex, endIndex);
+  const columns: IColumn[] = [
+    { label: "Full Name", accessor: "fullName", sortable: true },
+    { label: "Email", accessor: "email", sortable: true },
+    { label: "Age", accessor: "age", sortable: true },
+    { label: "Start date", accessor: "startDate", sortable: true },
+  ];
 
   return (
     <div>
       <table>
         <caption>Sortable Table with Pagination</caption>
+        <TableHead
+          columns={columns}
+          handleSorting={handleSorting}
+          sortField={sortField}
+          sortOrder={sortOrder}
+        />
+        <TableBody items={itemsDisplayed} />
       </table>
       <Pagination
         options={options}
