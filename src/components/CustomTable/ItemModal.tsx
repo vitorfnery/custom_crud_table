@@ -1,4 +1,5 @@
 import { Item } from "../../interfaces/CustomTable";
+import "./style.css";
 
 interface IModal {
   onClose: () => void;

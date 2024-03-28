@@ -1,15 +1,17 @@
 import { useState } from "react";
+
 import mockData from "../../data/data.json";
 import { Item } from "../../interfaces/CustomTable";
 import { CustomTable } from "../CustomTable";
 import { PageEnum } from "../../interfaces/Home";
 import { ItemForm } from "../Forms";
+import "./style.css";
 
 const options = [5, 10, 15];
 
 const mockItems: Item[] = mockData.map((item) => ({
   ...item,
-  startDate: new Date(item.startDate), // Convert string to Date
+  startDate: new Date(item.startDate),
 }));
 
 export const Home = () => {
@@ -17,21 +19,9 @@ export const Home = () => {
   const [showPage, setShowPage] = useState(PageEnum.list);
   const [itemToEdit, setItemToEdit] = useState({} as Item);
 
-  // useEffect(() => {
-  //   const listInString = window.localStorage.getItem("items");
-  //   if (listInString) {
-  //     _setItems(JSON.parse(listInString));
-  //   }
-  // }, []);
-
   const onAddItemClickHnd = () => setShowPage(PageEnum.add);
 
   const showListPage = () => setShowPage(PageEnum.list);
-
-  // const _setItems = (list: Item[]) => {
-  //   setItems(list);
-  //   window.localStorage.setItem("items", JSON.stringify(list));
-  // };
 
   const addItem = (item: Item) => setItems([...items, item]);
 
@@ -69,12 +59,12 @@ export const Home = () => {
       <section>
         {showPage === PageEnum.list && (
           <div className="table_container">
-            <>
+            <div className="add_container">
               <input
                 type="button"
                 value="Add Employee"
                 onClick={onAddItemClickHnd}
-                className="add-employee-btn"
+                className="add_button"
               />
               <CustomTable
                 items={items}
@@ -82,7 +72,7 @@ export const Home = () => {
                 onDeleteClickHnd={deleteItem}
                 onEdit={editItem}
               />
-            </>
+            </div>
           </div>
         )}
         {showPage === PageEnum.add && (

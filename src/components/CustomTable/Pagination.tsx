@@ -29,7 +29,7 @@ export const Pagination = ({
           ))}
         </select>
       </div>
-      <div>
+      <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (
           <button onClick={() => handleCurrentPage(i + 1)}>{i + 1}</button>
         ))}

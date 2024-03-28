@@ -1,6 +1,8 @@
 import { useState } from "react";
+
 import { Item } from "../../interfaces/CustomTable";
 import { PageEnum } from "../../interfaces/Home";
+import "./style.css";
 
 interface IItemForm {
   formType: PageEnum.add | PageEnum.edit;

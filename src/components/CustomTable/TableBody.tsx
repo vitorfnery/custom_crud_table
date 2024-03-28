@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Item } from "../../interfaces/CustomTable";
 import { ItemModal } from "./ItemModal";
+import "./style.css";
 
 export interface ITableBody {
   items: Item[];
