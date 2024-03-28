@@ -1,4 +1,11 @@
-import { ITableHead } from "../../interfaces/CustomTable";
+import { IColumn, Item } from "../../interfaces/CustomTable";
+
+export interface ITableHead {
+  columns: IColumn[];
+  handleSorting: (field: keyof Item) => void;
+  sortField: keyof Item | null;
+  sortOrder: "asc" | "desc";
+}
 
 export const TableHead = ({
   columns,
@@ -9,7 +16,7 @@ export const TableHead = ({
   return (
     <thead>
       <tr>
-        {columns.map(({ label, accessor, sortable }) => {
+        {columns.map(({ label, accessor, sortable }, i) => {
           const handleSortingOnClick = () =>
             sortable && handleSorting(accessor);
           const cl =
@@ -19,11 +26,12 @@ export const TableHead = ({
                 : "down"
               : "default";
           return (
-            <th onClick={handleSortingOnClick} className={cl}>
+            <th onClick={handleSortingOnClick} className={cl} key={i}>
               {label}
             </th>
           );
         })}
+        <th>Actions</th>
       </tr>
     </thead>
   );

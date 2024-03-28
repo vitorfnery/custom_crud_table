@@ -69,3 +69,32 @@
   table tbody tr:nth-child(2n) td {
     background: #fff;
   }
+
+  .row_actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .action_button {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: rgb(77, 218, 59);
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .action_button:hover {
+     background-color: orange;
+     transition: 500ms;
+     transform: scale(1.1);
+     color: #fff;
+  }
+
+  .item_form_actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+  }

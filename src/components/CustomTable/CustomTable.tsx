@@ -1,10 +1,23 @@
 import { useState } from "react";
-import { IColumn, ICustomTable, Item } from "../../interfaces/CustomTable";
+
+import { IColumn, Item } from "../../interfaces/CustomTable";
 import { TableHead } from "./TableHead";
 import { TableBody } from "./TableBody";
 import { Pagination } from "./Pagination";
 
-export const CustomTable = ({ items, options }: ICustomTable) => {
+export interface ICustomTable {
+  items: Item[];
+  options: number[];
+  onDeleteClickHnd: (item: Item) => void;
+  onEdit: (item: Item) => void;
+}
+
+export const CustomTable = ({
+  items,
+  options,
+  onDeleteClickHnd,
+  onEdit,
+}: ICustomTable) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [sortField, setSortField] = useState<keyof Item | null>(null);
@@ -67,7 +80,11 @@ export const CustomTable = ({ items, options }: ICustomTable) => {
           sortField={sortField}
           sortOrder={sortOrder}
         />
-        <TableBody items={itemsDisplayed} />
+        <TableBody
+          items={itemsDisplayed}
+          onDeleteClickHnd={onDeleteClickHnd}
+          onEdit={onEdit}
+        />
       </table>
       <Pagination
         options={options}

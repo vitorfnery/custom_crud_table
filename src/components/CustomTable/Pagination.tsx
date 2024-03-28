@@ -1,4 +1,10 @@
-import { IPagination } from "../../interfaces/CustomTable";
+export interface IPagination {
+  options: number[];
+  itemsPerPage: number;
+  totalPages: number;
+  handleItemsPerPage: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleCurrentPage: (pageNum: number) => void;
+}
 
 export const Pagination = ({
   options,
