@@ -1,8 +1,10 @@
+import { Home } from "./components/Home";
+
 const App = () => {
   return (
-    <>
-      <h1>Custom CRUD Table</h1>
-    </>
+    <div>
+      <Home />
+    </div>
   );
 };
 
